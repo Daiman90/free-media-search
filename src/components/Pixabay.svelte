@@ -1,6 +1,6 @@
 <script>
 	import { openMediaModal } from './Modal.svelte';
-
+	import { checkFilter } from './Filter.svelte';
   export let search = "";
   export let pixabayPhotos = [];
 
@@ -21,6 +21,7 @@
       }
       return result
     })
+    await checkFilter();
   })();
 
 </script>

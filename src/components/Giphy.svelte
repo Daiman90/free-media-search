@@ -1,12 +1,13 @@
 	<script>
 		import { openMediaModal } from './Modal.svelte';
-
+		import { checkFilter } from './Filter.svelte';
 		export let search = "";
 		export let GIF = [];
 
 		(async() => {
+			GIF = [];
 		 	const GIF_KEY = 'mCwKOpoiOnD7gQT5fc8JKzBO1noWaw6q';
-			const GIF_API_URL = `http://api.giphy.com/v1/gifs/search?limit=100&api_key=`
+			const GIF_API_URL = `https://api.giphy.com/v1/gifs/search?limit=100&api_key=`
 
 			const gifApi = `${GIF_API_URL}${GIF_KEY}&q=${search}`
 			const gifResponse = await fetch(gifApi);
@@ -19,7 +20,8 @@
 						"urls": gif.images.original.url
 				}
         return result
-      });
+			});
+			await checkFilter();
 		})();
 
   </script>

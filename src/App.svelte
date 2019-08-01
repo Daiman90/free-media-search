@@ -1,5 +1,6 @@
 <script>
 	import {openFilterModel, closeModal} from './components/Modal.svelte';
+	import {checkFilter} from './components/Filter.svelte';
 	import Unsplash from './components/Unsplash.svelte';
 	import Pixabay from './components/Pixabay.svelte';
 	import PexelsImg from './components/PexelsImg.svelte';
@@ -7,10 +8,14 @@
 	import GIF from './components/Giphy.svelte';
 	let search = '';
 	let loading = false;
+
 	  
 	async function formSubmitted(event) {
 		event.preventDefault();
-		loading = true;
+		const lastResults = await document.querySelectorAll('.results');
+		await lastResults.forEach(result => {
+			result.parentNode.removeChild(result);
+		})
 
 		let unsplash = await new Unsplash({
 			target: document.body,
@@ -47,27 +52,9 @@
 			}
 		})
 
-		await checkFilter();
 		loading = false;
+		await checkFilter();
 	};
-
-	async function checkFilter() {
-		const filteredItems = await document.querySelectorAll('.true')
-		let eachItem = await document.querySelectorAll('.single-item');
-		if(filteredItems.length !== 0) {
-			await eachItem.forEach(item => {
-				item.style.display = 'none';
-			});
-			filteredItems.forEach(filtered => {
-				let value = filtered.value;
-				eachItem.forEach(item => {
-					if(item.classList.contains(value)) {
-						item.style.display = 'block';
-					}
-				})
-			})
-		}
-	}
 </script>
 
 <style>

@@ -1,6 +1,6 @@
 <script>
 	import { openMediaModal } from './Modal.svelte';
-
+	import { checkFilter } from './Filter.svelte';
   export let search = "";
   export let pexelsPhotos = [];
 
@@ -32,6 +32,7 @@
 			return result
 
 			});
+			await checkFilter();
   })();
 </script>
 
@@ -42,7 +43,7 @@
 
 <div class="results">
 	{#each pexelsPhotos as photo}
-		<a on:click={openMediaModal} href={photo.urls} target="_blank" class="video pexels single-item">
+		<a on:click={openMediaModal} href={photo.urls} target="_blank" class="img pexels single-item">
 			<img src={photo.photos} alt="photo" />
 		</a>
 	{/each}

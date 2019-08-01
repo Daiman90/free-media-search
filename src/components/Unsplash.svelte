@@ -1,6 +1,6 @@
 	<script>
 		import { openMediaModal } from './Modal.svelte';
-		// import { UNSPLASH_ACCESS_KEY } from '../keys.svelte';
+		import { checkFilter } from './Filter.svelte';
 		export let search = "";
 		export let unsplashPhotos = [];
 
@@ -21,7 +21,7 @@
 				 }
 				 return result
 			 })
-			
+			await checkFilter();
 		})();
 
   </script>
